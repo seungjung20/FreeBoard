@@ -1,0 +1,184 @@
+package com.study.free.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import com.study.free.dao.FreeBoardDao;
+import com.study.free.vo.FreeBoardVO;
+
+@Service
+public class FreeBoardServiceImpl implements FreeBoardService {
+
+	@Autowired
+	FreeBoardDao fbd;
+
+	@Override
+	public int getTotalRowCount() {
+		// getTotalRowCount 메서드를 통해 테이블테이터 개수를 return
+		return fbd.getTotalRowCount();
+	}
+	
+	@Override
+	public List<FreeBoardVO> getBoardList(int start, int end) {
+		// HashMap<String(key), Object> 함수를 통해 Object를 key값으로 호출 할 수 있음
+		Map<String, Object> map = new HashMap<String, Object>();
+		// start(pageBegin)와 end(pageEnd)를 map에 저장
+		map.put("start", start);
+		map.put("end", end);
+		// getBoardList 메서드에 매개변수 map을 보내 start와 end를 고려한 테이블데이터를 return
+		return fbd.getBoardList(map);
+	}
+	
+	@Override
+	public int STotalRowCount(String searchOption, String keyword) {
+	    // HashMap<String(key), Object> 함수를 통해 Object를 key값으로 호출 할 수 있음
+		Map<String, String> map = new HashMap<String, String>();
+		// searchOption과 keyword를 map에 저장
+	    map.put("searchOption", searchOption);
+	    map.put("keyword", keyword);
+	    // STotalRowCount 메서드에 매개변수 map을 보내 searchOption과 keyword를 고려한 테이블데이터 개수를 return
+	    return fbd.STotalRowCount(map);
+	}
+
+	@Override
+	public List<FreeBoardVO> SBoardList(int start, int end, String searchOption, String keyword) {
+		// HashMap<String(key), Object> 함수를 통해 Object를 key값으로 호출 할 수 있음
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		// searchOption, keyword, start(pageBegin), end(pageEnd)를 map에 저장
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("start", start);
+	    map.put("end", end);
+	    // SBoardList 메서드에 매개변수 map을 보내 start와 end를 고려한 검색 후 테이블데이터를 return
+		return fbd.SBoardList(map);
+	}
+
+	@Override
+	public void freeView(int fbNo, Model model, int curPage) {
+		// Model 객체에 "freeBoard"(name)로 fbNo를 통해 freeView 메서드로 받은 해당 fbNo 테이블데이터(value)를 추가
+		// freeView.jsp에서 name으로 지정한 이름을 통해 value를 사용
+		model.addAttribute("freeBoard", fbd.freeView(fbNo));
+		// Model 객체에 "curPage"(name)로 curPage(value)를 추가(해당 글이 있던 페이지로 이동하기 위함)
+		model.addAttribute("curPage", curPage);
+	}
+	
+	@Override
+	public void freeViewDo(int fbNo, Model model, int curPage, String searchOption, String keyword) {
+		// Model 객체에 "freeBoard"(name)로 fbNo를 통해 freeView 메서드로 받은 해당 fbNo 테이블데이터(value)를 추가
+		model.addAttribute("freeBoard", fbd.freeView(fbNo));
+		// Model 객체에 "curPage"(name)로 curPage(value)를 추가(해당 글이 있던 페이지로 이동하기 위함)
+		model.addAttribute("curPage", curPage);
+		// Model 객체에 "searchOption"(name)로 searchOption(value)를 추가(검색 후 해당 글이 있던 페이지로 이동하기 위함)
+		model.addAttribute("searchOption", searchOption);
+		// Model 객체에 "keyword"(name)로 keyword(value)를 추가(검색 후 해당 글이 있던 페이지로 이동하기 위함)
+		model.addAttribute("keyword", keyword);
+	}
+
+	@Override
+	public String freeWriteSave(HttpServletRequest request) {
+		// FreeBoardVO 객체 생성하여 vo 변수에 저장
+		FreeBoardVO vo = new FreeBoardVO();
+		// 클라이언트 form 데이터인 fbTitle, fbWriter, fbContent를 가져와 vo 변수에 각각 fbTitle, fbWriter, fbContent로 저장
+		vo.setFbTitle(request.getParameter("fbTitle"));
+		vo.setFbWriter(request.getParameter("fbWriter"));
+		vo.setFbContent(request.getParameter("fbContent"));
+		
+		// freeWriteSave 메서드에 vo를 보내 테이블에 값을 저장후 결과 값을 result에 저장 
+		int result = 0;
+		try {
+			result=fbd.freeWriteSave(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		String msg, url;
+		if(result==1) {
+			msg="글이 등록되었습니다.";
+			url="/free/freeList";
+		} else {
+			msg="문제가 발생하였습니다.";
+			url="/free/freeWriteForm";
+		}
+		String message=null;
+		String path=request.getContextPath();
+		// message 변수에 script 태그를 통해 alert 메시지와 경로를 저장 후 return
+		message="<script>alert('"+msg+"');";
+		message+="location.href='"+path+url+"';</script>";
+		return message;
+	}
+
+	@Override
+	public String freeEditSave(HttpServletRequest request, int curPage) {
+		// FreeBoardVO 객체 생성하여 vo 변수에 저장
+		FreeBoardVO vo = new FreeBoardVO();
+		// 클라이언트 form 데이터인 fbNo, fbTitle, fbContent를 가져와 vo 변수에 각각 fbNo, fbTitle, fbContent로 저장
+		vo.setFbNo(Integer.parseInt(request.getParameter("fbNo")));
+		vo.setFbTitle(request.getParameter("fbTitle"));
+		vo.setFbContent(request.getParameter("fbContent"));
+		
+		// freeEditSave 메서드에 vo를 보내 테이블에 값을 업데이트후 결과 값을 result에 저장
+		int result = 0;
+		try {
+			result=fbd.freeEditSave(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// String 변수 msg와 url에 각각 result==1 일 경우와 아닐 경우의 메시지와 경로를 저장
+		// curPage는 fbNo로 해당 글로 이동 후 해당 글이 있던 페이지로 이동하기 위함
+		String msg, url;
+		if(result==1) {
+			msg="글이 수정되었습니다.";
+			url="/free/freeView?fbNo="+vo.getFbNo()+"&curPage="+curPage;
+		} else {
+			msg="문제가 발생하였습니다.";
+			url="/free/freeEditFrom?fbNo="+vo.getFbNo()+"&curPage="+curPage;
+		}
+
+		String message=null;
+		// getContentPath() : http://localhost:8080 즉, 프로젝트 path를 가져옴
+		String path=request.getContextPath();
+		// message 변수에 script 태그를 통해 alert 메시지와 경로를 저장 후 return
+		message="<script>alert('"+msg+"');";
+		message+="location.href='"+path+url+"';</script>";
+		return message;
+	}
+
+	@Override
+	public String freeDelete(int fbNo, HttpServletRequest request) {
+		// freeDelete 메서드에 fbNo를 보내 해당 fbNo 데이터 삭제후 결과 값을 result에 저장
+		int result = 0;
+		try {
+			result=fbd.freeDelete(fbNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// String 변수 msg와 url에 각각 result==1 일 경우와 아닐 경우의 메시지와 경로를 저장
+		String msg, url;
+		if(result==1) {
+			msg="글이 삭제되었습니다.";
+			url="/free/freeList";
+		} else {
+			msg="문제가 발생하였습니다.";
+			url="/free/freeView?fbNo="+fbNo;
+		}
+
+		String message=null;
+		// getContentPath() : http://localhost:8080 즉, 프로젝트 path를 가져옴
+		String path=request.getContextPath();
+		// message 변수에 script 태그를 통해 alert 메시지와 경로를 저장 후 return
+		message="<script>alert('"+msg+"');";
+		message+="location.href='"+path+url+"';</script>";
+		return message;
+	}
+	
+	
+}

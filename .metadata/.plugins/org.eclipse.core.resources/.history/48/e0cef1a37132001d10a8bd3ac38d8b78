@@ -1,0 +1,29 @@
+package com.study.free.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.study.free.vo.FreeBoardVO;
+
+@Mapper
+public interface FreeBoardDao {
+
+	public int getTotalRowCount();
+	
+	public List<FreeBoardVO> getBoardList(Map<String, Object> map);
+	
+	public int STotalRowCount(Map<String, String> map);
+	
+	public List<FreeBoardVO> SBoardList(Map<String, Object> map);
+	
+	public int freeWriteSave(FreeBoardVO vo);
+
+	public FreeBoardVO freeView(int fbNo);
+
+	public int freeDelete(int fbNo);
+
+	public int freeEditSave(FreeBoardVO vo);
+
+}

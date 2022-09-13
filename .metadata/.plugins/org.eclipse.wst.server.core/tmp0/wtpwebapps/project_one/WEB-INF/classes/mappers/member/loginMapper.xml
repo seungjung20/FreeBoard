@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+
+<select id="login" resultMap="MemberVOResultMap">
+	select * from MP_MEMBER where member_email = #{memberEmail}
+</select>
+
+<resultMap id="MemberVOResultMap" type="com.web.root.member.vo.MemberVO">
+	<result property="memberEmail" column="MEMBER_EMAIL"/>
+	<result property="memberPw" column="MEMBER_PW"/>
+	<result property="memberJoinDate" column="MEMBER_JOIN_DATE"/>
+	<result property="memberImg" column="MEMBER_IMG"/>
+</resultMap>
+
+</mapper>
