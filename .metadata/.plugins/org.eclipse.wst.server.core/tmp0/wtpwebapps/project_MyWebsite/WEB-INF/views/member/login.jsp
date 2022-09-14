@@ -19,11 +19,11 @@
                                     <form class="user" action="loginCheck" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
-                                                id="exampleInputEmail" name="id" placeholder="Enter Id">
+                                                   id="exampleInputEmail" name="id" placeholder="Enter Id">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" name="pw" placeholder="Password">
+                                                   id="exampleInputPassword" name="pw" placeholder="Password">
                                         </div>
                                         <button value="submit" class="btn btn-primary btn-user btn-block">Login</button>
                                     </form>

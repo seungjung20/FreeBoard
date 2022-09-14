@@ -19,19 +19,19 @@
                                     <form class="user" action="infoUpdate" method="post">
 										<div class="form-group">
 											ID<input type="text" class="form-control form-control-user" 
-												name="memId" required="required" value="${info.memId }" readonly>
+													 name="memId" required="required" value="${info.memId }" readonly>
 										</div>
 										<div class="form-group">
 											PW<input type="password" class="form-control form-control-user"
-												name="memPass" required="required" value="${info.memPass }">
+													 name="memPass" required="required" value="${info.memPass }">
 										</div>
 										<div class="form-group">		
 											NAME<input type="text" class="form-control form-control-user"
-												name="memName" required="required" value="${info.memName }" readonly>
+													   name="memName" required="required" value="${info.memName }" readonly>
 										</div>
 										<div class="form-group">			
 											EMAIL<input type="text" class="form-control form-control-user"
-												name="memMail" value="${info.memMail }">
+														name="memMail" value="${info.memMail }">
 										</div>
 										<hr>
 										<button type="submit" class="btn btn-primary btn-user btn-block" onclick="return edit()">edit</button>

@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class FreeBoardVO {
+	
 	private int fbNo; /* 글 번호 */
 	private String fbTitle; /* 글 제목 */
 	private String fbWriter; /* 작성자명 */

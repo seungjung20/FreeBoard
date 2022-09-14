@@ -1,6 +1,7 @@
 package com.study.member.vo;
 
 public class MemberVO {
+	
 	private String memId;         /* 회원 아이디 */
 	private String memPass;       /* 회원 비밀번호 */
 	private String memName;       /* 회원 성명 */
@@ -30,7 +31,5 @@ public class MemberVO {
 	public void setMemMail(String memMail) {
 		this.memMail = memMail;
 	}
-
-	
 	
 }

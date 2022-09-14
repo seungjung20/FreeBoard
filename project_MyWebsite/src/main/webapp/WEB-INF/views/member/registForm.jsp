@@ -15,12 +15,12 @@
                             <form class="user registForm" action="regist" method="post">
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" name="memName"
-                                    id="name" placeholder="Name">
+                                   		   id="name" placeholder="Name">
                                 </div>
                                 <div class="form-group registIdDiv">
                                     <div class="registInput">
                                     	<input type="text" class="form-control form-control-user" name="memId"
-                                    	id="id" placeholder="Id" oninput="idCheck()">
+                                    		   id="id" placeholder="Id" oninput="idCheck()">
                                     </div>
                                     <div class="registSpan">
                                     	<span id="idConfirmMsg"></span>
@@ -29,9 +29,9 @@
                                 <div class="form-group registPwDiv">
                                     <div class="registPw registInput">
                                         <input type="password" class="form-control form-control-user" name="memPass"
-                                        id="pw1" placeholder="Password">
+                                        	   id="pw1" placeholder="Password">
                                         <input type="password" class="form-control form-control-user"
-                                        id="pw2" placeholder="Repeat Password" onkeyup="passConfirm()">
+                                        	   id="pw2" placeholder="Repeat Password" onkeyup="passConfirm()">
                                     </div>
                                     <div class="registSpan">
                                     	<span id="pwConfirmMsg"></span>
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" name="memMail"
-                                    id="email" placeholder="Email Address">
+                                    	   id="email" placeholder="Email Address">
                                 </div>
                                 <button type="button" class="btn btn-primary btn-user btn-block" onclick="formCheck(this.form)">Register Account</button>
                             </form>

@@ -42,8 +42,12 @@
                                     	<c:forEach items="${map.Slist }" var="search">
                                     		<tr>
 										 		<td>${search.fbWriter }</td>
-										 		<td class="list-title"><a href="freeView.do?fbNo=${search.fbNo }
-										 		&searchOption=${map.searchOption }&keyword=${map.keyword }&curPage=${map.paging.curPage }">${search.fbTitle }</a></td>
+										 		<td class="list-title">
+										 			<a href="freeView.do?fbNo=${search.fbNo }
+										 								&searchOption=${map.searchOption }
+										 								&keyword=${map.keyword }
+										 								&curPage=${map.paging.curPage }">${search.fbTitle }</a>
+										 		</td>
 										 		<td>${search.fbRegDate }</td>
 										 	</tr>
                                     	</c:forEach>
@@ -51,7 +55,9 @@
                                         <c:forEach items="${map.list }" var="freeBoard">
 											<tr>
 										 		<td>${freeBoard.fbWriter }</td>
-										 		<td class="list-title"><a href="freeView?fbNo=${freeBoard.fbNo }&curPage=${map.paging.curPage }">${freeBoard.fbTitle }</a></td>
+										 		<td class="list-title">
+										 			<a href="freeView?fbNo=${freeBoard.fbNo }&curPage=${map.paging.curPage }">${freeBoard.fbTitle }</a>
+										 		</td>
 										 		<td>${freeBoard.fbRegDate }</td>
 										 	</tr>
 										</c:forEach>

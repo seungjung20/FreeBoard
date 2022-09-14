@@ -5,5 +5,4 @@
      
 	<div class="blue">FreeBoard</div>
 
-
 <%@include file="includes/footer.jsp" %>
